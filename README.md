@@ -1,4 +1,4 @@
-#Building Qt 6.5.2 for Khadas VIM3
+# Building Qt 6.5.2 for Khadas VIM3
 
 I’ve tested newest Qt 6 with Khadas VIM3 board and it works great. It is manual how to cross-compile Qt6.5.2 from sources for Khadas VIM3 board (maybe it can be used for VIM4 board).
 
@@ -9,7 +9,7 @@ It manual also can be used for VIM3, except some details.
 
 Several steps need to be taken:
 
-#1. Host machine preparing
+# 1. Host machine preparing
 
 Requirements: Ubuntu 22.04, Gnome,  Linux 6.2., gcc 11 version
 
@@ -33,7 +33,7 @@ Installing a cross-compiler. I use g++ v11, older versions fails with linker err
 sudo apt install g++-aarch64-linux-gnu
 ```
 
-#2. Building Qt6 for host machine
+# 2. Building Qt6 for host machine
 
 ```bash
 cd ~
@@ -80,7 +80,7 @@ $ cmake --install .
 ```
 
 
-#3. Test Qt on Host machine 
+# 3. Test Qt on Host machine 
 
 $sudo apt install qtcreator
 $qtcreator
@@ -131,7 +131,7 @@ $ /home/vks/qt6_5_2_HostBuild/bin/qml -I /home/vks/clutch_dashboard/qml/imports 
  
 ```
 
-#4. Prepare Khadas VIM3 
+# 4. Prepare Khadas VIM3 
 
 Requirements: Ubuntu 22.04, Gnome,  Linux 6.2, gcc 11 version.
 Library of GCC v9 and 10 on VIM3 will cause of linker errors with Qt 6.5.2, so GCC v11 included in Ubuntu 22.04 is required.
@@ -161,7 +161,7 @@ libxrandr-dev libdirectfb-dev libaudio-dev libxkbcommon-x11-dev
 sudo apt install libxcb-cursor-dev
 ```
 
-#5. Copying VIM3 libs
+# 5. Copying VIM3 libs
 On Host machine: 
 
 ```bash
@@ -179,7 +179,7 @@ $ chmod +x sysroot-relativelinks.py
 $ python3 sysroot-relativelinks.py sysroot
 ```
 
-#6. Cross-compile
+# 6. Cross-compile
 
 ```bash
 $ cd ~
@@ -281,7 +281,7 @@ Send installation to VIM3 board:
 rsync -avz --rsync-path="sudo rsync" /home/vks/qt6khadas root@192.168.43.183:/usr/local 
 ```
 
-#7 Test Khadas VIM3 compilation
+# 7. Test Khadas VIM3 compilation
 
 On VIM3 board download and test examples:
 
