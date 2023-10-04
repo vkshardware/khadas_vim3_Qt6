@@ -85,6 +85,8 @@ $ cmake --install .
 
 # 3. Test Qt on Host machine 
 
+Install QtCreator.
+
 $sudo apt install qtcreator
 $qtcreator
 
@@ -116,6 +118,9 @@ Open QML test project, check that’s Qt6 works properly. You can open these exa
 $ /home/vks/qt6_5_2_HostBuild/bin/qml -I /home/vks/khadas_vim3_Qt6/CoffeeMachine/imports /home/vks/khadas_vim3_Qt6/CoffeeMachine/content/App.qml
 
 ```
+![alt text](https://github.com/vkshardware/khadas_vim3_Qt6/blob/main/coffee_machine.png)
+
+
 Examples listed below need to build and install following modules:
 
 qtquicktimeline-everywhere-src-6.5.2.tar.xz
@@ -131,12 +136,17 @@ qtquickdesigner-components
 $ /home/vks/qt6_5_2_HostBuild/bin/qml -I /home/vks/khadas_vim3_Qt6/ClusterTutorial/imports -I /home/vks/khadas_vim3_Qt6/ClusterTutorial/asset_imports /home/vks/khadas_vim3_Qt6/ClusterTutorial/content/App.qml
 ```
 
+![alt text](https://github.com/vkshardware/khadas_vim3_Qt6/blob/main/cluster_tutorial.png)
+
 ```bash
 //My ATV project
 
 $ /home/vks/qt6_5_2_HostBuild/bin/qml -I /home/vks/khadas_vim3_Qt6/clutch_dashboard/qml/imports -I /home/vks/khadas_vim3_Qt6/clutch_dashboard/qml/asset_imports /home/vks/khadas_vim3_Qt6/clutch_dashboard/qml/content/App.qml
  
 ```
+
+![alt text](https://github.com/vkshardware/khadas_vim3_Qt6/blob/main/clutch_dashboard.png)
+
 
 # 4. Prepare Khadas VIM3 
 
