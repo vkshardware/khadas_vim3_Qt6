@@ -4,7 +4,7 @@ I’ve tested newest Qt 6 with Khadas VIM3 board and it works great. It is manua
 
 Qt6 has cool features as Timeline, quick3d and examples how to use it (with QtCreator or Qt Design Studio). That’s powerful tools to create custom automotive applications.  
 In general performance of VIM3 board is enough to render simple 3d animation (via OpenGL ES and quick3d module). Demo applications displays smooth and fast. It even little bit faster than RaspberryPi 4 with Vulkan drivers. 
-Ulas Dikme created detailed manual for Qt6.3.0 and RaspberryPi  4 (thanks to him):  https://github.com/PhysicsX/QTonRaspberryPi/blob/main/README.md
+Ulas Dikme created detailed manual for Qt6.3.0 and RaspberryPi  4 (thanks a lot):  https://github.com/PhysicsX/QTonRaspberryPi/blob/main/README.md
 It manual also can be used for VIM3, except some details.
 
 Several steps need to be taken:
@@ -33,13 +33,15 @@ Installing a cross-compiler. I use g++ v11, older versions fails with linker err
 sudo apt install g++-aarch64-linux-gnu
 ```
 
-# 2. Building Qt6 for host machine
+# 2. Building Qt6 for Host machine
 
 ```bash
 cd ~
 $ wget https://download.qt.io/official_releases/qt/6.5/6.5.2/submodules/qtbase-everywhere-src-6.5.2.tar.xz
+
 $ mkdir qt6_5_2_Host
 $ cd qt6_5_2_Host
+
 $ tar xf ../qtbase-everywhere-src-6.5.2.tar.xz
 $ cd qtbase-everywhere-src-6.5.2
 cmake -GNinja -DCMAKE_BUILD_TYPE=RelWithDebInfo -DINPUT_opengl=es2 -DQT_BUILD_EXAMPLES=OFF -DQT_BUILD_TESTS=OFF -DQT_FEATURE_xcb=ON -DCMAKE_INSTALL_PREFIX=/home/vks/qt6_5_2_HostBuild
@@ -64,6 +66,7 @@ cd  ~
 $ wget https://download.qt.io/official_releases/qt/6.5/6.5.2/submodules/qtshadertools-everywhere-src-6.5.2.tar.xz
 $ wget https://download.qt.io/official_releases/qt/6.5/6.5.2/submodules/qtdeclarative-everywhere-src-6.5.2.tar.xz
 
+$ cd qt6_5_2_Host
 $ tar xf ../qtshadertools-everywhere-src-6.5.2.tar.xz
 $ tar xf ../qtdeclarative-everywhere-src-6.5.2.tar.xz
 
@@ -86,6 +89,7 @@ $sudo apt install qtcreator
 $qtcreator
 
 Tools->Options->Kits
+
 Qt Versions-> Add-> Select ~/qt6_5_2_HostBuild/bin/qmake 
 
 Kits->Compiler GCC 
@@ -94,6 +98,7 @@ Select Qt compiler -> Qt6.5.2
 Note: QtCreator available from Ubuntu repository is old 6.0.2 version. Good idea is to build from sources newer QtCreator.
 
 
+Download some QML examples:
 
 ```bash
 $cd ~
@@ -106,11 +111,13 @@ Open QML test project, check that’s Qt6 works properly. You can open these exa
 
 ```bash
 
-Qt CoffeeMachine example
-$ /home/vks/qt6_5_2_HostBuild/bin/qml -I /home/vks/CoffeeMachine/imports /home/vks/CoffeeMachine/content/App.qml
+//Qt CoffeeMachine example
+
+$ /home/vks/qt6_5_2_HostBuild/bin/qml -I /home/vks/khadas_vim3_Qt6/CoffeeMachine/imports /home/vks/khadas_vim3_Qt6/CoffeeMachine/content/App.qml
 
 ```
-Examples listed below need to build and install following dependensies:
+Examples listed below need to build and install following modules:
+
 qtquicktimeline-everywhere-src-6.5.2.tar.xz
 qtquick3d-everywhere-src-6.5.2.tar.xz
 qt5compat-everywhere-src-6.5.2.tar.xz
@@ -119,24 +126,24 @@ qtquickdesigner-components
 
 
 ```bash
-Qt ClusterTutorial project
+//Qt ClusterTutorial project
 
-$ /home/vks/qt6_5_2_HostBuild/bin/qml -I /home/vks/ClusterTutorial/imports -I /home/vks/ClusterTutorial/asset_imports /home/vks/ClusterTutorial/content/App.qml
+$ /home/vks/qt6_5_2_HostBuild/bin/qml -I /home/vks/khadas_vim3_Qt6/ClusterTutorial/imports -I /home/vks/khadas_vim3_Qt6/ClusterTutorial/asset_imports /home/vks/khadas_vim3_Qt6/ClusterTutorial/content/App.qml
 ```
 
 ```bash
-My ATV project
+//My ATV project
 
-$ /home/vks/qt6_5_2_HostBuild/bin/qml -I /home/vks/clutch_dashboard/qml/imports -I /home/vks/clutch_dashboard/qml/asset_imports /home/vks/clutch_dashboard/qml/content/App.qml
+$ /home/vks/qt6_5_2_HostBuild/bin/qml -I /home/vks/khadas_vim3_Qt6/clutch_dashboard/qml/imports -I /home/vks/khadas_vim3_Qt6/clutch_dashboard/qml/asset_imports /home/vks/khadas_vim3_Qt6/clutch_dashboard/qml/content/App.qml
  
 ```
 
 # 4. Prepare Khadas VIM3 
 
 Requirements: Ubuntu 22.04, Gnome,  Linux 6.2, gcc 11 version.
-Library of GCC v9 and 10 on VIM3 will cause of linker errors with Qt 6.5.2, so GCC v11 included in Ubuntu 22.04 is required.
+Using of GCC libs v9 and v10 on VIM3 will cause of linker errors with Qt 6.5.2, so GCC v11 included in Ubuntu 22.04 is required.
 
-To build own image use https://github.com/khadas/fenix
+To build own image for VIM3 board use https://github.com/khadas/fenix
 
 Install dependencies:
 ```bash
@@ -166,15 +173,18 @@ On Host machine:
 
 ```bash
 cd ~
+
 $ mkdir khadas-sdk 
 $ cd khadas-sdk
 
 $ mkdir sysroot sysroot/usr
+
 $ rsync -avz --rsync-path="sudo rsync" root@192.168.43.183:/usr/include sysroot/usr
 $ rsync -avz --rsync-path="sudo rsync" root@192.168.43.183:/lib sysroot
 $ rsync -avz --rsync-path="sudo rsync" root@192.168.43.183:/usr/lib sysroot/usr 
 
 $ wget https://raw.githubusercontent.com/riscv/riscv-poky/master/scripts/sysroot-relativelinks.py
+
 $ chmod +x sysroot-relativelinks.py 
 $ python3 sysroot-relativelinks.py sysroot
 ```
@@ -186,7 +196,7 @@ $ cd ~
 $ mkdir qt-cross
 $ cd qt-cross
 ```
-Create toolchain.cmake file with following:
+Create here toolchain.cmake file with following:
 
 
 ```bash
@@ -288,8 +298,8 @@ On VIM3 board download and test examples:
 git clone https://github.com/vkshardware/khadas_vim3_Qt6
 
 
-Qt CoffeeMachine example
-$ /usr/local/qt6khadas/bin/qml -I /home/khadas/CoffeeMachine/imports /home/khadas/CoffeeMachine/content/App.qml
+//Qt CoffeeMachine example
+$ /usr/local/qt6khadas/bin/qml -I /home/khadas/khadas_vim3_Qt6/CoffeeMachine/imports /home/khadas/khadas_vim3_Qt6/CoffeeMachine/content/App.qml
 
 ```
 Examples listed below need to cross-compile and install following dependensies:
@@ -301,15 +311,24 @@ qtquickdesigner-components
 
 
 ```bash
-Qt ClusterTutorial project
+//Qt ClusterTutorial project
 
-$ /usr/local/qt6khadas/bin/qml -I /home/khadas/ClusterTutorial/imports -I /home/khadas/ClusterTutorial/asset_imports /home/khadas/ClusterTutorial/content/App.qml
+$ /usr/local/qt6khadas/bin/qml -I /home/khadas/khadas_vim3_Qt6/ClusterTutorial/imports -I /home/khadas/khadas_vim3_Qt6/ClusterTutorial/asset_imports /home/khadas/khadas_vim3_Qt6/ClusterTutorial/content/App.qml
 ```
 
 ```bash
-My ATV project
+//My ATV project
 
-$ /usr/local/qt6khadas/bin/qml -I /home/khadas/clutch_dashboard/qml/imports -I /home/khadas/clutch_dashboard/qml/asset_imports /home/khadas/clutch_dashboard/qml/content/App.qml
+$ /usr/local/qt6khadas/bin/qml -I /home/khadas/khadas_vim3_Qt6/clutch_dashboard/qml/imports -I /home/khadas/khadas_vim3_Qt6/clutch_dashboard/qml/asset_imports /home/khadas/khadas_vim3_Qt6/clutch_dashboard/qml/content/App.qml
 
 ```
 
+If error message occured
+
+```bash
+qt.qpa.plugin: Could not find the Qt platform plugin "wayland" in ""
+```
+
+Try to define xcb platform before running application:
+
+export QT_QPA_PLATFORM="xcb"

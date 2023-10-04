@@ -36,6 +36,7 @@ Window {
     height: Constants.height
 
     visible: true
+    visibility: "FullScreen"
     title: "ClusterTutorial"
 
     ClusterTutorial {
