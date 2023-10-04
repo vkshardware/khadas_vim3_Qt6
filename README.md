@@ -123,12 +123,13 @@ $ /home/vks/qt6_5_2_HostBuild/bin/qml -I /home/vks/khadas_vim3_Qt6/CoffeeMachine
 
 Examples listed below need to build and install following modules:
 
+```bash
 qtquicktimeline-everywhere-src-6.5.2.tar.xz
 qtquick3d-everywhere-src-6.5.2.tar.xz
 qt5compat-everywhere-src-6.5.2.tar.xz
 qtserialbus-everywhere-src-6.5.2.tar.xz
 qtquickdesigner-components
-
+```
 
 ```bash
 //Qt ClusterTutorial project
