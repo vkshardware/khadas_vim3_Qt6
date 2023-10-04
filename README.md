@@ -268,7 +268,7 @@ $ cmake --install .
 
 ```
 
-If compilation of core succeseed, check that file architecture of qmake is correct:
+If compilation of core succeseed, check that binary qmake is correct:
 
 ```bash
 
@@ -306,6 +306,7 @@ rsync -avz --rsync-path="sudo rsync" /home/vks/qt6khadas root@192.168.43.183:/us
 
 On VIM3 board download and test examples:
 
+```bash
 git clone https://github.com/vkshardware/khadas_vim3_Qt6
 
 
@@ -313,13 +314,16 @@ git clone https://github.com/vkshardware/khadas_vim3_Qt6
 $ /usr/local/qt6khadas/bin/qml -I /home/khadas/khadas_vim3_Qt6/CoffeeMachine/imports /home/khadas/khadas_vim3_Qt6/CoffeeMachine/content/App.qml
 
 ```
+
 Examples listed below need to cross-compile and install following dependensies:
+
+```bash
 qtquicktimeline-everywhere-src-6.5.2.tar.xz
 qtquick3d-everywhere-src-6.5.2.tar.xz
 qt5compat-everywhere-src-6.5.2.tar.xz
 qtserialbus-everywhere-src-6.5.2.tar.xz
 qtquickdesigner-components
-
+```
 
 ```bash
 //Qt ClusterTutorial project
@@ -342,4 +346,6 @@ qt.qpa.plugin: Could not find the Qt platform plugin "wayland" in ""
 
 Try to define xcb platform before running application:
 
+```bash
 export QT_QPA_PLATFORM="xcb"
+```
